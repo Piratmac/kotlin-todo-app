@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="taskDetailsViewModel"
+            type="com.piratmac.todo.view_models.TaskDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:importantForAutofill="noExcludeDescendants"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp">
+
+        <EditText
+            android:id="@+id/taskLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_label"
+            android:inputType="textPersonName"
+            android:text="@={taskDetailsViewModel.task.label}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/due"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/taskLabel"
+            app:layout_constraintWidth_min="50dp"
+            tools:layout_editor_absoluteX="117dp">
+
+            <TextView
+                android:id="@+id/taskDueDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center_vertical"
+                android:hint="@string/task_due_date"
+                app:taskDueDate="@{taskDetailsViewModel.task}" />
+
+            <TextView
+                android:id="@+id/taskDueTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:hint="@string/task_due_time"
+                app:taskDueTime="@{taskDetailsViewModel.task}" />
+
+            <Button
+                android:id="@+id/taskDueDateTimeDelete"
+                style="@style/Buttons.NegativeAction"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="@string/task_delete_due_date_time"
+                app:taskDueDateTimeDelete="@{taskDetailsViewModel.task}" />
+
+            <ImageButton
+                android:id="@+id/taskNotify"
+                style="@style/Buttons.Switches"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/task_notify"
+                app:srcCompat="@drawable/ic_alarm_off"
+                app:taskNotify="@{taskDetailsViewModel.task}" />
+
+            <ImageButton
+                android:id="@+id/taskRepetition"
+                style="@style/Buttons.Switches"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/task_repetition"
+                app:srcCompat="@drawable/ic_recurrence_off"
+                app:taskRecurrence="@{taskDetailsViewModel.task}" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/taskDetails"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
+            android:hint="@string/task_details"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:text="@={taskDetailsViewModel.task.details}"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/due" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="263dp">
+
+            <Button
+                android:id="@+id/taskDelete"
+                style="@style/Buttons.NegativeAction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/task_delete" />
+
+            <android.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/taskSave"
+                style="@style/Buttons.PositiveAction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/task_save" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

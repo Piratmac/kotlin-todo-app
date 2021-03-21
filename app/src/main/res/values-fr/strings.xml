@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="task_add_new">Ajouter</string>
+    <string name="task_delete">Supprimer</string>
+    <string name="task_label">Titre</string>
+    <string name="task_details">Détails</string>
+    <string name="task_save">Enregistrer</string>
+    <string name="task_due_date">Date d\'échéance</string>
+    <string name="task_due_time">Heure d\'échéance</string>
+    <string name="task_notify">Activer notification</string>
+    <string name="task_repetition">Tâche répétée</string>
+    <string name="task_delete_due_date_time">×</string>
+
+    <string name="header_today">Aujourd\'hui</string>
+    <string name="header_tomorrow">Demain</string>
+    <string name="header_in2days">Dans 2 jours</string>
+    <string name="header_later">Plus tard</string>
+    <string name="header_one_day">Un jour</string>
+
+    <string name="confirm_tasks_deletion_title">Supprimer tâches terminées?</string>
+    <string name="confirm_tasks_deletion_message">Ceci va supprimer toutes les tâches terminées. Êtes-vous sûr?</string>
+    <string name="confirm_task_deletion_title">Supprimer cette tâche?</string>
+    <string name="confirm_task_deletion_message">Ceci va supprimer la tâche. Êtes-vous sûr?</string>
+
+    <string name="notification_task_due_channel_id">piratmac.todo.task_due</string>
+    <string name="notification_task_due_channel_name">Tâche dûe</string>
+    <string name="notification_task_due_channel_description">Notification à échéance</string>
+
+    <string name="task_mark_done">Fait</string>
+    <string name="task_snooze">Retarder</string>
+
+    <string name="repetition_choose_frequency">Choix de la fréquence</string>
+    <string name="repetition_stop">Arrêter répétition</string>
+    <string name="repetition_years">Années</string>
+    <string name="repetition_months">Mois</string>
+    <string name="repetition_days">Jours</string>
+    <string name="open_fullscreen">Ouvrir en plein écran</string>
+
+
+    <string name="error_load_tasks">Echec au chargement de la tâche: %s</string>
+    <string name="error_snooze_task">Echec du retard de la tâche: %s</string>
+    <string name="error_mark_task_done">Echec de complétion de la tâche: %s</string>
+    <string name="error_creating_notification_schedule">Echec lors de la création du canal de notification: %s</string>
+
+    <string name="settings">Paramètres</string>
+    <string name="backup">Sauvegarder</string>
+    <string name="restore">Restaurer</string>
+    <string name="close">Close</string>
+    <string name="backup_success">Sauvegarde réussie</string>
+    <string name="backup_failed">Sauvegarde échouée</string>
+    <string name="restore_success">Restauration réussie</string>
+    <string name="restore_failed">Restauration échouée</string>
+</resources>

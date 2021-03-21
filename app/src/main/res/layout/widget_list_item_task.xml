@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    tools:layout_editor_absoluteX="117dp"
+    tools:layout_editor_absoluteY="65dp">
+
+
+    <ImageButton
+        android:id="@+id/widgetTaskButton"
+        android:layout_width="18dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/task_mark_done"
+        android:src="@drawable/ic_checkbox_off"
+        android:text="@string/confirm_task_deletion_title" />
+
+    <TextView
+        android:id="@+id/widgetTaskLabel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="top"
+        android:layout_gravity="top"
+        android:text=""
+        android:textColor="@color/white"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        tools:text="Today" />
+
+
+</LinearLayout>

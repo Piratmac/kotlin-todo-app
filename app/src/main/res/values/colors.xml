@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray">#FF898884</color>
+
+    <!-- Colors for Light theme -->
+    <color name="blue_dark">#FF002486</color>
+    <color name="black">#FF000000</color>
+
+
+    <!-- Colors for Dark theme -->
+    <color name="blue_light">#FF0068bb</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange_light">#FFef6c00</color>
+
+</resources>

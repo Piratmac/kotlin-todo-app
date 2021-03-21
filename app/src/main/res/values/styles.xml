@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- In task list, the day-by-day headings -->
+    <style name="TodoList.Heading" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- In task list within the widget, the day-by-day headings -->
+    <style name="Widget.TodoList.Heading" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/blue_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <!-- In task list, tasks in "normal" status (= not done yet). Nothing needed because = default -->
+    <style name="TodoList.Task.NotDone" parent="TextAppearance.MaterialComponents.Subtitle1" />
+
+    <!-- In task list, completed tasks -->
+    <style name="TodoList.Task.Done" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <!-- New / Save buttons -->
+    <style name="Buttons.PositiveAction" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Delete buttons -->
+    <style name="Buttons.NegativeAction" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorOnError</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+<!-- Alarm & Recurrence buttons -->
+    <style name="Buttons.Switches" parent="Widget.MaterialComponents.Button.TextButton">
+    </style>
+</resources>

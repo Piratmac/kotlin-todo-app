@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/todoListFragment">
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="com.piratmac.todo.views.TodoListFragment"
+        android:label="TodoListFragment" >
+        <action
+            android:id="@+id/action_todoListFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment">
+            <argument
+                android:name="taskId"
+                android:defaultValue="0L" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="com.piratmac.todo.views.TaskDetailsFragment"
+        android:label="TaskDetailsFragment" >
+        <argument
+            android:name="taskId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_taskDetailsFragment_to_todoListFragment"
+            app:destination="@id/todoListFragment"
+            app:popUpTo="@id/todoListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

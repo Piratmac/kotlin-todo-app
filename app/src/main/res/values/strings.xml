@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="task_add_new">Add new</string>
+    <string name="task_delete">Delete</string>
+    <string name="task_label">Label</string>
+    <string name="task_details">Details</string>
+    <string name="task_save">Save</string>
+    <string name="task_due_date">Due date</string>
+    <string name="task_due_time">Due time</string>
+    <string name="task_notify">Enable notification</string>
+    <string name="task_repetition">Repeating task</string>
+    <string name="task_delete_due_date_time">×</string>
+
+    <string name="header_today">Today</string>
+    <string name="header_tomorrow">Tomorrow</string>
+    <string name="header_in2days">In 2 days</string>
+    <string name="header_later">Later</string>
+    <string name="header_one_day">One day</string>
+
+    <string name="confirm_tasks_deletion_title">Delete done tasks?</string>
+    <string name="confirm_tasks_deletion_message">This will delete all done tasks. Are you sure?</string>
+
+    <string name="confirm_task_deletion_title">Delete this task?</string>
+    <string name="confirm_task_deletion_message">This will delete the task. Are you sure?</string>
+
+    <string name="notification_task_due_channel_id">piratmac.todo.task_due</string>
+    <string name="notification_task_due_channel_name">Task due</string>
+    <string name="notification_task_due_channel_description">Notification upon task\'s due date</string>
+
+    <string name="task_mark_done">Mark done</string>
+    <string name="task_snooze">Snooze</string>
+
+    <string name="repetition_choose_frequency">Choose frequency</string>
+    <string name="repetition_stop">Stop repetition</string>
+    <string name="repetition_years">Years</string>
+    <string name="repetition_months">Months</string>
+    <string name="repetition_days">Days</string>
+    <string name="open_fullscreen">Open fullscreen</string>
+
+
+    <string name="error_load_tasks">Failed to load tasks: %s</string>
+    <string name="error_snooze_task">Failed to snooze task: %s</string>
+    <string name="error_mark_task_done">Failed to mark task as done: %s</string>
+    <string name="error_creating_notification_schedule">Failed to generate notification schedule: %s</string>
+
+    <string name="settings">Settings</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="close">Close</string>
+    <string name="backup_success">Backup successful</string>
+    <string name="restore_failed">Restore failed</string>
+    <string name="backup_failed">Backup failed</string>
+    <string name="restore_success">Restore successful</string>
+
+</resources>

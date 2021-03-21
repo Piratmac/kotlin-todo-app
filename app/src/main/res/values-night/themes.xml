@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Todo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="backgroundColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <item name="colorAccent">@color/blue_light</item>
+        <item name="colorOnError">@color/orange_light</item>
+        <item name="colorSecondary">@color/gray</item>
+
+    </style>
+</resources>
