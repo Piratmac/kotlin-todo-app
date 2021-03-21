@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/task_label"
-            android:inputType="textPersonName"
+            android:inputType="textShortMessage|textAutoCorrect|textCapSentences"
             android:text="@={taskDetailsViewModel.task.label}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
             android:gravity="start|top"
             android:hint="@string/task_details"
             android:importantForAutofill="no"
-            android:inputType="textMultiLine"
+            android:inputType="textLongMessage|textAutoCorrect|textMultiLine|textCapSentences"
             android:text="@={taskDetailsViewModel.task.details}"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -116,22 +116,22 @@
             <Button
                 android:id="@+id/taskDelete"
                 style="@style/Buttons.NegativeAction"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/task_delete" />
 
             <android.widget.Space
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <Button
                 android:id="@+id/taskSave"
                 style="@style/Buttons.PositiveAction"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/task_save" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
