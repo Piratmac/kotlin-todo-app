@@ -23,6 +23,10 @@ class TodoListWidgetProvider : AppWidgetProvider() {
             val pendingIntentForNewTask: PendingIntent =
                 TodoPendingIntent().forTaskDetailsById(context, 0L)
 
+            // Create an intent for deleting done tasks
+            val pendingIntentForTaskDelete: PendingIntent =
+                TodoPendingIntent().forTasksDeleteDone(context)
+
             // Create an intent for opening task details
             val pendingIntentForTaskDetails = TodoPendingIntent().forBroadcast(context)
 
@@ -33,9 +37,9 @@ class TodoListWidgetProvider : AppWidgetProvider() {
                         PendingIntent.getActivity(context, 0, intent, 0)
                     }
 
-            // Create an intent for refreshing the widget
-            val pendingIntentForRefresh: PendingIntent =
-                TodoPendingIntent().forWidgetUpdate(context)
+            // Create an intent for refreshing the widget -> Not needed as it works well without it
+            /*val pendingIntentForRefresh: PendingIntent =
+                TodoPendingIntent().forWidgetUpdate(context)*/
 
             // Create an intent for updating the data
             val pendingIntentForTodoList =
@@ -53,6 +57,7 @@ class TodoListWidgetProvider : AppWidgetProvider() {
                 setRemoteAdapter(R.id.todoList, pendingIntentForTodoList)
                 setPendingIntentTemplate(R.id.todoList, pendingIntentForTaskDetails)
                // setOnClickPendingIntent(R.id.refresh_widget, pendingIntentForRefresh)
+                setOnClickPendingIntent(R.id.delete_done_tasks, pendingIntentForTaskDelete)
                 setOnClickPendingIntent(R.id.add_task, pendingIntentForNewTask)
                 setOnClickPendingIntent(R.id.open_fullscreen, pendingIntentForFullscreen)
             }

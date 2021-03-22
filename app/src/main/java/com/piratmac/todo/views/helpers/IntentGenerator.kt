@@ -48,6 +48,16 @@ class TodoPendingIntent {
     }
 
     // Pending intent for opening the task details page
+    fun forTasksDeleteDone(context: Context, notificationIdToDismiss: Int = 0): PendingIntent {
+        return PendingIntent.getBroadcast(
+            context,
+            0,
+            TodoIntent().forTasksDeleteDone(context, notificationIdToDismiss),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+    }
+
+    // Pending intent for opening the task details page
     fun forTaskDetailsById(context: Context, taskId: Long): PendingIntent {
         return NavDeepLinkBuilder(context.applicationContext)
             .setGraph(R.navigation.navigation)
@@ -124,6 +134,11 @@ class TodoIntent : Intent() {
     // Intent for opening the task details page
     fun forTaskDetails(context: Context, task: Task, notificationIdToDismiss: Int = 0): Intent {
         return this.forTaskAction(context, task, notificationIdToDismiss, IntentActionTaskOpenDetails)
+    }
+
+    // Intent for deleting completed tasks
+    fun forTasksDeleteDone(context: Context, notificationIdToDismiss: Int = 0): Intent {
+        return this.forTaskAction(context, Task(0), notificationIdToDismiss, IntentActionTasksDeleteDone)
     }
 
     // Update widgets

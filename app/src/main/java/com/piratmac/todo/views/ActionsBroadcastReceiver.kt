@@ -24,6 +24,7 @@ const val IntentActionMarkTaskAsDone = "com.piratmac.todo.mark_done"
 const val IntentActionToggleTaskDone = "com.piratmac.todo.toggle_done"
 const val IntentActionSnoozeTask = "com.piratmac.todo.snooze_task"
 const val IntentActionTaskOpenDetails = "com.piratmac.todo.open_details"
+const val IntentActionTasksDeleteDone = "com.piratmac.todo.delete_done_tasks"
 
 const val IntentNotificationId = "com.piratmac.todo.notification_id"
 const val IntentNotificationContents = "com.piratmac.todo.notification_contents"
@@ -113,6 +114,16 @@ class ActionsBroadcastReceiver : BroadcastReceiver() {
                         .mapSuccess { TodoPendingIntent().forWidgetUpdate(context).send(); it }
                         .mapError { reportError(context, R.string.error_mark_task_done, it) }
                 }
+            }
+
+            IntentActionTasksDeleteDone -> {
+                val tasksRepository = TasksRepository(getDatabase(context.applicationContext))
+                GlobalScope.launch {
+                    DeleteDoneTasks(tasksRepository).execute()
+                        .mapSuccess { TodoPendingIntent().forWidgetUpdate(context).send() }
+                        .mapError { reportError(context, R.string.error_delete_done_tasks, it) }
+                }
+                notificationManager.cancel(notificationId)
             }
 
             IntentActionSnoozeTask -> {

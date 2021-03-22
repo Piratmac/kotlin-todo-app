@@ -42,6 +42,7 @@
     <string name="error_snooze_task">Echec du retard de la tâche: %s</string>
     <string name="error_mark_task_done">Echec de complétion de la tâche: %s</string>
     <string name="error_creating_notification_schedule">Echec lors de la création du canal de notification: %s</string>
+    <string name="error_delete_done_tasks">Erreur lors de la suppresion des tâches achevées</string>
 
     <string name="settings">Paramètres</string>
     <string name="backup">Sauvegarder</string>

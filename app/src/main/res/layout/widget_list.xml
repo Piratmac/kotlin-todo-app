@@ -17,6 +17,19 @@
         -->
 
     <ImageButton
+        android:id="@+id/delete_done_tasks"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/task_delete"
+        android:elevation="10dp"
+        android:src="@drawable/ic_delete" />
+
+    <ImageButton
         android:id="@+id/open_fullscreen"
         android:layout_width="24dp"
         android:layout_height="24dp"
