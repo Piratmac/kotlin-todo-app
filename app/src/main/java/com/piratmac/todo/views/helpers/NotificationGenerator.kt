@@ -81,8 +81,8 @@ class NotificationGenerator(context: Context) {
 
             // Determines what will be opened when clicking on the notification
             setContentIntent(TodoPendingIntent().forTaskDetails(context, task, notificationId))
-            addAction(0, context.getString(R.string.task_mark_done), TodoPendingIntent().forTaskMarkDone(context, task, notificationId))
             addAction(0, context.getString(R.string.task_snooze), TodoPendingIntent().forTaskSnooze(context, task, notificationId))
+            addAction(0, context.getString(R.string.task_mark_done), TodoPendingIntent().forTaskMarkDone(context, task, notificationId))
         }
 
         // Create the intent for the alarm
