@@ -2,6 +2,7 @@ package com.piratmac.todo.use_cases
 
 import com.piratmac.todo.data.repository.TasksRepository
 import com.piratmac.todo.models.Task
+import java.time.LocalDateTime
 
 class SnoozeTask(private val tasksRepository: TasksRepository) {
     class Request(
@@ -15,7 +16,7 @@ class SnoozeTask(private val tasksRepository: TasksRepository) {
     }
 
     private fun snooze (request: Request, task: Task): Task {
-        task.due = task.due.plusSeconds(request.durationInSeconds)
+        task.due = LocalDateTime.now().plusSeconds(request.durationInSeconds)
         return task
     }
 }
