@@ -30,8 +30,9 @@ class TodoListViewModel(application: Application) : AndroidViewModel(application
 
     val visibleTasks = tasksRepository.allTasks
 
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    class TodoListViewFactory(private val app: Application) :
+        ViewModelProvider.Factory {
+        fun <T : TodoListViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(TodoListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return TodoListViewModel(app) as T

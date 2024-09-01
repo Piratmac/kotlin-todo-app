@@ -39,15 +39,13 @@ fun TextView.setTaskLabel(task: Task) {
 
         // Let's add color
         val colorTypedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorOnError, colorTypedValue, true)
+        context.setTheme(R.style.Theme_Todo)
+        context.theme.resolveAttribute(R.color.colorOnError, colorTypedValue, true)
         image.colorFilter = PorterDuffColorFilter(colorTypedValue.data, PorterDuff.Mode.MULTIPLY)
 
         // Convert to a span
-        val imageSpan = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        val imageSpan =
             ImageSpan(image, ImageSpan.ALIGN_CENTER)
-        } else {
-            ImageSpan(image, DynamicDrawableSpan.ALIGN_BASELINE)
-        }
 
         taskLabel.append("   ")
         taskLabel.setSpan(
@@ -79,7 +77,7 @@ fun TextView.setTaskLabel(task: Task) {
 
         // Then, apply text appearance
         val colorTypedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorSecondary, colorTypedValue, true)
+        context.theme.resolveAttribute(R.color.colorSecondary, colorTypedValue, true)
 
         val timeLength = dueTimeText.length
         dueTimeLabel.setSpan(
@@ -155,10 +153,10 @@ fun Button.setTaskDueDateTimeDelete(item: Task) {
 fun ImageButton.setTaskNotify(item: Task) {
     val colorToApply: Int
     if (item.notifyWhenDue) {
-        colorToApply = R.attr.colorOnError
+        colorToApply = R.color.colorOnError
         setImageResource(R.drawable.ic_alarm_on)
     } else {
-        colorToApply = R.attr.colorSecondary
+        colorToApply = R.color.colorSecondary
         setImageResource(R.drawable.ic_alarm_add)
     }
     val colorTypedValue = TypedValue()
@@ -171,10 +169,10 @@ fun ImageButton.setTaskNotify(item: Task) {
 fun ImageButton.setTaskRecurrence(item: Task) {
     val colorToApply: Int
     if (item.isRepeating) {
-        colorToApply = R.attr.colorOnError
+        colorToApply = R.color.colorOnError
         setImageResource(R.drawable.ic_recurrence_on)
     } else {
-        colorToApply = R.attr.colorSecondary
+        colorToApply = R.color.colorSecondary
         setImageResource(R.drawable.ic_recurrence_off)
     }
     val colorTypedValue = TypedValue()

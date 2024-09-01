@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import com.piratmac.todo.R
@@ -22,7 +21,16 @@ class TodoPendingIntent {
             context,
             task.id.toInt(),
             TodoIntent().forTaskMarkDone(context, task, notificationIdToDismiss),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+    // Pending Intent for toggling the done/not done flag on a task
+    fun forTaskToggleDone(context: Context, task: Task, notificationIdToDismiss: Int = 0): PendingIntent {
+        return PendingIntent.getBroadcast(
+            context,
+            task.id.toInt(),
+            TodoIntent().forTaskToggleDone(context, task, notificationIdToDismiss),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -32,7 +40,7 @@ class TodoPendingIntent {
             context,
             task.id.toInt(),
             TodoIntent().forTaskSnooze(context, task, notificationIdToDismiss),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -43,7 +51,7 @@ class TodoPendingIntent {
             context,
             task.id.toInt(),
             TodoIntent().forTaskDetails(context, task, notificationIdToDismiss),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -53,7 +61,7 @@ class TodoPendingIntent {
             context,
             0,
             TodoIntent().forTasksDeleteDone(context, notificationIdToDismiss),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -75,19 +83,21 @@ class TodoPendingIntent {
         val intent = Intent()
             .apply {
                 setClass(context, ActionsBroadcastReceiver::class.java)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    identifier = notificationId.toString()
-                }
+                identifier = notificationId.toString()
                 action = IntentActionNotificationToSend
                 putExtra(IntentNotificationId, notificationId)
                 putExtra(IntentNotificationContents, notification)
             }
-        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getBroadcast(context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 
     // Update widgets
     fun forWidgetUpdate(context: Context): PendingIntent {
-        return PendingIntent.getBroadcast(context, 0, TodoIntent().forWidgetUpdate(context), 0)
+        return PendingIntent.getBroadcast(context, 0, TodoIntent().forWidgetUpdate(context),
+            PendingIntent.FLAG_IMMUTABLE)
     }
 
     // Empty pending intent (used for the widget's ListView)
@@ -96,7 +106,7 @@ class TodoPendingIntent {
             context,
             0,
             TodoIntent().forBroadcast(context),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 }
@@ -106,9 +116,7 @@ class TodoIntent : Intent() {
     private fun forTaskAction (context: Context, task: Task, notificationIdToDismiss: Int = 0, intentAction: String): Intent {
         return this.apply {
             setClass(context, ActionsBroadcastReceiver::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                identifier = intentAction + task.id.toString()
-            }
+            identifier = intentAction + task.id.toString()
             action = intentAction
             putExtra(IntentTaskId, task.id)
             if (notificationIdToDismiss != 0)

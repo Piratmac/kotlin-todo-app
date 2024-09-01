@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -28,15 +27,15 @@ class TaskDetailsFragment : Fragment() {
             "You can only access the viewModel after onActivityCreated()"
         }
         ViewModelProvider(
-            this, TaskDetailsViewModel.Factory(
+            this, TaskDetailsViewModel.TaskDetailsViewFactory(
                 activity.application, TaskDetailsFragmentArgs.fromBundle(
                     requireArguments()
                 ).taskId
             )
-        )
-            .get(TaskDetailsViewModel::class.java)
+        )[TaskDetailsViewModel::class.java]
     }
 
+    private lateinit var fragmentTaskDetailsBinding: FragmentTaskDetailsBinding
     private lateinit var binding: FragmentTaskDetailsBinding
 
     override fun onCreateView(
@@ -44,12 +43,12 @@ class TaskDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(
+        binding = FragmentTaskDetailsBinding.inflate(
             inflater,
-            R.layout.fragment_task_details,
             container,
             false
         )
+        fragmentTaskDetailsBinding = binding
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.taskDetailsViewModel = taskDetailsViewModel
@@ -63,39 +62,41 @@ class TaskDetailsFragment : Fragment() {
         binding.taskSave.setOnClickListener { taskDetailsViewModel.onSaveTaskClick() }
         binding.taskDelete.setOnClickListener { onTaskDeleteClick() }
 
+
+
         // Task is loaded or modified
-        taskDetailsViewModel.taskLiveData.observe(viewLifecycleOwner, {
+        taskDetailsViewModel.taskLiveData.observe(viewLifecycleOwner) {
             taskDetailsViewModel.task = it
             context?.let { it1 -> TodoPendingIntent().forWidgetUpdate(it1).send() }
             binding.invalidateAll()
-        })
+        }
 
         // "Save" and "Back" button navigation
-        taskDetailsViewModel.navigateToTodoList.observe(viewLifecycleOwner, {
+        taskDetailsViewModel.navigateToTodoList.observe(viewLifecycleOwner) {
             val imm =
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.taskLabel.windowToken, 0)
 
             this.findNavController()
                 .navigate(TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTodoListFragment())
-        })
+        }
 
 
         // Task needs to schedule notifications
-        taskDetailsViewModel.scheduleNotificationForTask.observe(viewLifecycleOwner, { task ->
+        taskDetailsViewModel.scheduleNotificationForTask.observe(viewLifecycleOwner) { task ->
             context?.let { context ->
                 val notificationGenerator = getNotificationGenerator(context)
                 notificationGenerator.scheduleNotificationForTaskDue(context, task)
             }
-        })
+        }
 
         // Task's scheduled notification to be deleted
-        taskDetailsViewModel.deleteNotificationForTask.observe(viewLifecycleOwner, { task ->
+        taskDetailsViewModel.deleteNotificationForTask.observe(viewLifecycleOwner) { task ->
             context?.let { context ->
                 val notificationGenerator = getNotificationGenerator(context)
                 notificationGenerator.deleteNotificationForTaskDue(context, task)
             }
-        })
+        }
         return binding.root
     }
 
@@ -117,10 +118,10 @@ class TaskDetailsFragment : Fragment() {
     // Click on Due date
     private fun onTaskDueDateClick() {
         val datePickerFragment = DatePickerFragment()
-        datePickerFragment.dateChosen.observe(this, { newDate ->
+        datePickerFragment.dateChosen.observe(viewLifecycleOwner) { newDate ->
             taskDetailsViewModel.setDueDate(newDate)
             binding.invalidateAll()
-        })
+        }
 
         datePickerFragment.show(activity?.supportFragmentManager!!, "datePicker")
     }
@@ -128,10 +129,10 @@ class TaskDetailsFragment : Fragment() {
     // Click on Due time
     private fun onTaskDueTimeClick() {
         val timePickerFragment = TimePickerFragment()
-        timePickerFragment.timeChosen.observe(this, { newTime ->
+        timePickerFragment.timeChosen.observe(viewLifecycleOwner) { newTime ->
             taskDetailsViewModel.setDueTime(newTime)
             binding.invalidateAll()
-        })
+        }
 
         timePickerFragment.show(activity?.supportFragmentManager!!, "timePicker")
     }
@@ -153,10 +154,10 @@ class TaskDetailsFragment : Fragment() {
         timePeriodFragment.show(activity?.supportFragmentManager!!, "periodPicker")
         taskDetailsViewModel.task.repeatFrequency?.let { timePeriodFragment.setPeriod(it) }
 
-        timePeriodFragment.periodChosen.observe(this, { period ->
+        timePeriodFragment.periodChosen.observe(viewLifecycleOwner) { period ->
             taskDetailsViewModel.setRepetitionPeriod(period)
             binding.invalidateAll()
-        })
+        }
     }
 
     // Click on Deletion

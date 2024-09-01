@@ -28,7 +28,7 @@ class TimePeriodFragment : DialogFragment() {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             @SuppressLint("InflateParams")
-            finalView = LayoutInflater.from(context).inflate(R.layout.dialog_period_picker, null)
+            finalView = layoutInflater.inflate(R.layout.dialog_period_picker, null)
 
             // Sets the default values
             if (initPeriodValue.years != 0)

@@ -13,7 +13,6 @@ sealed class TodoListItem: Comparable<TodoListItem> {
 
     // Overloading operators for easier sort
     override fun compareTo(other: TodoListItem): Int {
-        @Suppress("IntroduceWhenSubject")
         when {
             // Both items are headers, so sort by date
             (this is TodoListItemHeader) and (other is TodoListItemHeader) -> {

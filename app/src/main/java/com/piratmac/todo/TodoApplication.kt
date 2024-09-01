@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.piratmac.todo
 
 import android.app.Application

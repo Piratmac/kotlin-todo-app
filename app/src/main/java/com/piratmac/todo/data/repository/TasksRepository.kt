@@ -1,18 +1,18 @@
 package com.piratmac.todo.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
+import com.piratmac.todo.data.database.DatabaseTask
 import com.piratmac.todo.data.database.TasksDatabase
 import com.piratmac.todo.data.database.asDatabaseModel
 import com.piratmac.todo.data.database.asDomainModel
 import com.piratmac.todo.models.Task
 
 class TasksRepository(private val database: TasksDatabase) {
-    val allTasks: LiveData<List<Task>> =
-        Transformations.map(database.taskDao.getTasks()) {
-            it.asDomainModel()
-        }
 
+    val allTasks = database.taskDao.getTasks().map {
+            it: List<DatabaseTask> -> it.asDomainModel()
+    }
 
     suspend fun getFutureDueSiblings(task: Task): List<Task> {
         return if (task.repeatGroup != null)
@@ -31,9 +31,7 @@ class TasksRepository(private val database: TasksDatabase) {
     }
 
     fun getTaskLiveData(id: Long): LiveData<Task> {
-        return Transformations.map(database.taskDao.getTaskLiveData(id)) {
-            it.asDomainModel()
-        }
+        return database.taskDao.getTaskLiveData(id).map { it.asDomainModel() }
     }
 
     suspend fun getTasksForWidget(): List<Task> {

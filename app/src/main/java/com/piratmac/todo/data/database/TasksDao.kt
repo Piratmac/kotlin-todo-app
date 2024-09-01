@@ -3,7 +3,7 @@ package com.piratmac.todo.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import androidx.room.OnConflictStrategy.ABORT
+import androidx.room.OnConflictStrategy.Companion.ABORT
 import androidx.sqlite.db.SupportSQLiteQuery
 import java.time.LocalDateTime
 
@@ -48,7 +48,7 @@ interface TasksDao {
 
     // Used for making sure the DB is consistent before backup
     @RawQuery
-    fun checkpoint(supportSQLiteQuery: SupportSQLiteQuery?): Int
+    fun checkpoint(supportSQLiteQuery: SupportSQLiteQuery): Int
     // Used with myDAO.checkpoint(new SimpleSQLiteQuery("pragma wal_checkpoint(full)"));
 }
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -24,19 +23,24 @@ class TodoListFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProvider(this, TodoListViewModel.Factory(activity.application))
-            .get(TodoListViewModel::class.java)
+        ViewModelProvider(this)[TodoListViewModel::class.java]
     }
+
+    private lateinit var fragmentTodoListBinding: FragmentTodoListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: FragmentTodoListBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_todo_list, container, false)
+        val binding = FragmentTodoListBinding.inflate(
+            inflater,
+            container,
+            false)
 
-        binding.lifecycleOwner = this
+        fragmentTodoListBinding = binding
+
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.todoListViewModel = todoListViewModel
 
         binding.deleteDoneTasks.setOnClickListener { onDeleteDoneTasksClick() }
@@ -51,16 +55,16 @@ class TodoListFragment : Fragment() {
 
 
         // List of tasks is updated ==> update the view
-        todoListViewModel.visibleTasks.observe(viewLifecycleOwner, {
+        todoListViewModel.visibleTasks.observe(viewLifecycleOwner) {
             it?.let {
                 val todoListItems = adapter.addHeaders(it)
                 adapter.submitList(todoListItems)
             }
             context?.let { it1 -> it1.sendBroadcast(TodoIntent().forWidgetUpdate(it1)) }
-        })
+        }
 
         // Task is moved (most likely marked as done) ==> update view
-        todoListViewModel.taskMoved.observe(viewLifecycleOwner, { taskIt ->
+        todoListViewModel.taskMoved.observe(viewLifecycleOwner) { taskIt ->
             taskIt?.let { task ->
                 val newTodoListItems = adapter.addHeaders(todoListViewModel.visibleTasks.value!!)
                 val fromPosition = adapter.currentList.indexOfFirst { task.id.toString() == it.id }
@@ -70,10 +74,10 @@ class TodoListFragment : Fragment() {
                 adapter.notifyItemChanged(toPosition)
                 adapter.notifyItemMoved(fromPosition, toPosition)
             }
-        })
+        }
 
         // Schedule notification for new tasks (for repeating tasks, when marked done & new task created)
-        todoListViewModel.scheduleNotificationForTask.observe(this, { task ->
+        todoListViewModel.scheduleNotificationForTask.observe(viewLifecycleOwner) { task ->
             context?.let { context ->
                 val notificationGenerator = getNotificationGenerator(context)
                 notificationGenerator.scheduleNotificationForTaskDue(
@@ -81,10 +85,10 @@ class TodoListFragment : Fragment() {
                     task
                 )
             }
-        })
+        }
 
         // Remove notifications from done tasks
-        todoListViewModel.deleteNotificationForTask.observe(this, { task ->
+        todoListViewModel.deleteNotificationForTask.observe(viewLifecycleOwner) { task ->
             context?.let { context ->
                 val notificationGenerator = getNotificationGenerator(context)
                 notificationGenerator.deleteNotificationForTaskDue(
@@ -92,7 +96,7 @@ class TodoListFragment : Fragment() {
                     task
                 )
             }
-        })
+        }
 
         return binding.root
     }

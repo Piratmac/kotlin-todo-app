@@ -14,17 +14,16 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.nio.file.Files
 import java.util.*
 
 
 class BackupManager(val context: Context) {
-    private var defaultBackupFolder: File = File(context.getExternalFilesDir(null), "backup")
+    private var defaultBackupFolder: File = File(context.getExternalFilesDir(null), "../../../media/com.piratmac.todo/backup")
     private var defaultBackupFile: File = File(defaultBackupFolder, "backup.db")
 
     private var backupFolder: File = defaultBackupFolder
     private var backupFile: File = defaultBackupFile
-
+    
     fun setBackupFolder(customBackupFolder: String) {
         backupFolder = File(customBackupFolder)
     }
@@ -100,16 +99,14 @@ class BackupManager(val context: Context) {
     fun validFile(): Boolean {
         val uri = Uri.fromFile(backupFile)
 
-        val test = Files.probeContentType(backupFile.toPath())
-
         val mimeType = if (ContentResolver.SCHEME_CONTENT == uri.scheme) {
             context.contentResolver.getType(uri)
         } else {
             val fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
-            if (fileExtension.toLowerCase(Locale.ROOT) == "db")
+            if (fileExtension.lowercase(Locale.ROOT) == "db")
                 return true
             MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                fileExtension.toLowerCase(Locale.ROOT)
+                fileExtension.lowercase(Locale.ROOT)
             )
         }
 

@@ -35,10 +35,9 @@ class TaskDetailsViewModel(application: Application, taskId: Long) : ViewModel()
     val taskLiveData = GetTaskLiveData(tasksRepository).execute(GetTaskLiveData.Request(taskId))
     var task: Task = Task(taskId)
 
-
-    class Factory(private val app: Application, private val taskId: Long = 0L) :
+    class TaskDetailsViewFactory(private val app: Application, private val taskId: Long = 0L) :
         ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(TaskDetailsViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return TaskDetailsViewModel(app, taskId) as T

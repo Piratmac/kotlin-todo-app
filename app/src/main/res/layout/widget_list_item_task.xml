@@ -19,7 +19,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/task_mark_done"
         android:src="@drawable/ic_checkbox_off"
-        android:text="@string/confirm_task_deletion_title" />
+        android:text="@string/task_mark_done" />
 
     <TextView
         android:id="@+id/widgetTaskLabel"

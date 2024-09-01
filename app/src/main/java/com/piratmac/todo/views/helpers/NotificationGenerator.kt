@@ -2,7 +2,6 @@ package com.piratmac.todo.views.helpers
 
 import android.app.*
 import android.content.Context
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.piratmac.todo.R
 import com.piratmac.todo.models.Task
@@ -26,16 +25,14 @@ class NotificationGenerator(context: Context) {
     ) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, name, importance)
-            channel.description = description
-            channel.setShowBadge(showBadge)
+        val channel = NotificationChannel(channelId, name, importance)
+        channel.description = description
+        channel.setShowBadge(showBadge)
 
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun buildNotificationTemplate(
@@ -91,6 +88,7 @@ class NotificationGenerator(context: Context) {
             TodoPendingIntent().forNotificationPublisher(context, notificationId, notification)
 
         // Triggers the alarm
+        alarmMgr?.canScheduleExactAlarms()
         alarmMgr?.setExact(
             AlarmManager.RTC_WAKEUP,
             triggerTimeMilli,
