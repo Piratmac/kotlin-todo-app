@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="alarm_add" format="boolean" />
+    <attr name="alarm_on" format="boolean" />
+    <attr name="recurrence_on" format="boolean" />
+</resources>

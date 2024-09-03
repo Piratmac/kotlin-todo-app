@@ -75,7 +75,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/task_notify"
-                app:srcCompat="@drawable/ic_alarm_off"
+                app:srcCompat="@drawable/ic_alarm_selector"
                 app:taskNotify="@{taskDetailsViewModel.task}" />
 
             <ImageButton
@@ -84,7 +84,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/task_repetition"
-                app:srcCompat="@drawable/ic_recurrence_off"
+                app:srcCompat="@drawable/ic_recurrence_selector"
                 app:taskRecurrence="@{taskDetailsViewModel.task}" />
 
         </LinearLayout>

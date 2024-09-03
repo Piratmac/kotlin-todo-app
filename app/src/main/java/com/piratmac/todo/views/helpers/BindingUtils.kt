@@ -151,31 +151,33 @@ fun Button.setTaskDueDateTimeDelete(item: Task) {
 // Is notification active?
 @BindingAdapter("taskNotify")
 fun ImageButton.setTaskNotify(item: Task) {
-    val colorToApply: Int
     if (item.notifyWhenDue) {
-        colorToApply = R.color.colorOnError
-        setImageResource(R.drawable.ic_alarm_on)
+        setImageState(
+            intArrayOf(-R.attr.alarm_add),
+            true)
+        setImageState(
+            intArrayOf(R.attr.alarm_on),
+            true)
     } else {
-        colorToApply = R.color.colorSecondary
-        setImageResource(R.drawable.ic_alarm_add)
+        setImageState(
+            intArrayOf(R.attr.alarm_add),
+            true)
+        setImageState(
+            intArrayOf(-R.attr.alarm_on),
+            true)
     }
-    val colorTypedValue = TypedValue()
-    context.theme.resolveAttribute(colorToApply, colorTypedValue, true)
-    this.colorFilter = PorterDuffColorFilter(colorTypedValue.data, PorterDuff.Mode.MULTIPLY)
 }
 
 // Is recurrence active?
 @BindingAdapter("taskRecurrence")
 fun ImageButton.setTaskRecurrence(item: Task) {
-    val colorToApply: Int
     if (item.isRepeating) {
-        colorToApply = R.color.colorOnError
-        setImageResource(R.drawable.ic_recurrence_on)
+        setImageState(
+            intArrayOf(R.attr.recurrence_on),
+            true)
     } else {
-        colorToApply = R.color.colorSecondary
-        setImageResource(R.drawable.ic_recurrence_off)
+        setImageState(
+            intArrayOf(-R.attr.recurrence_on),
+            true)
     }
-    val colorTypedValue = TypedValue()
-    context.theme.resolveAttribute(colorToApply, colorTypedValue, true)
-    this.colorFilter = PorterDuffColorFilter(colorTypedValue.data, PorterDuff.Mode.MULTIPLY)
 }
