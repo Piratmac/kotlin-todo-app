@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.IntentCompat
 import com.piratmac.todo.R
 import com.piratmac.todo.data.database.getDatabase
 import com.piratmac.todo.data.repository.TasksRepository
@@ -45,7 +46,7 @@ class ActionsBroadcastReceiver : BroadcastReceiver() {
             // Send notifications
             IntentActionNotificationToSend -> {
                 val notification: Notification? =
-                    intent.getParcelableExtra(IntentNotificationContents)
+                    IntentCompat.getParcelableExtra(intent, IntentNotificationContents, Notification::class.java)
 
                 notificationManager.notify(notificationId, notification)
             }
