@@ -3,7 +3,6 @@ package com.piratmac.todo.views.dialogs
 import android.annotation.SuppressLint
 import android.app.*
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast

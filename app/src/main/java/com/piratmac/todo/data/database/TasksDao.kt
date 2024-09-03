@@ -25,8 +25,8 @@ interface TasksDao {
     @Query("SELECT * FROM DatabaseTask")
     suspend fun getTasksForWidget(): List<DatabaseTask>
 
-    @Query("SELECT * FROM DatabaseTask WHERE repeat_group = :group_id and due > :due")
-    suspend fun getFutureDueSiblings(group_id: Long, due: LocalDateTime): List<DatabaseTask>
+    @Query("SELECT * FROM DatabaseTask WHERE repeat_group = :groupId and due > :due")
+    suspend fun getFutureDueSiblings(groupId: Long, due: LocalDateTime): List<DatabaseTask>
 
     @Query("SELECT * FROM DatabaseTask WHERE done = 0 AND notifyWhenDue = 1")
     suspend fun getTasksForNotification(): List<DatabaseTask>
