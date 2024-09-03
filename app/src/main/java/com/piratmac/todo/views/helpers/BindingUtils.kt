@@ -1,11 +1,8 @@
 package com.piratmac.todo.views.helpers
 
 import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.*
@@ -14,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.piratmac.todo.R
@@ -32,27 +30,17 @@ fun TextView.setTaskLabel(task: Task) {
     val taskLabel = SpannableStringBuilder(task.label)
 
     if (task.isRepeating) {
-        // Get image and define size
-        val image: Drawable =
-            ResourcesCompat.getDrawable(resources, R.drawable.ic_recurrence_on, null)!!
-        image.setBounds(0, 0, textSize.toInt(), textSize.toInt())
-
-        // Let's add color
-        val colorTypedValue = TypedValue()
-        context.setTheme(R.style.Theme_Todo)
-        context.theme.resolveAttribute(R.color.colorOnError, colorTypedValue, true)
-        image.colorFilter = PorterDuffColorFilter(colorTypedValue.data, PorterDuff.Mode.MULTIPLY)
-
-        // Convert to a span
-        val imageSpan =
-            ImageSpan(image, ImageSpan.ALIGN_CENTER)
+        // Get image - the size was empirically determined to fit
+        val imageSpan = context?.let {
+            ImageSpan(it, R.drawable.ic_recurrence_on_small, DynamicDrawableSpan.ALIGN_CENTER)
+        }
 
         taskLabel.append("   ")
         taskLabel.setSpan(
             imageSpan,
             taskLabel.length - 1,
             taskLabel.length,
-            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
         )
     }
 
@@ -70,36 +58,34 @@ fun TextView.setTaskLabel(task: Task) {
             else -> task.due.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
         }
 
-        if (dueTimeText != "")
+        if (dueTimeText != "") {
             dueTimeText = "     ($dueTimeText)"
 
-        val dueTimeLabel = SpannableStringBuilder(dueTimeText)
+            val dueTimeLabel = SpannableStringBuilder(dueTimeText)
 
-        // Then, apply text appearance
-        val colorTypedValue = TypedValue()
-        context.theme.resolveAttribute(R.color.colorSecondary, colorTypedValue, true)
+            // Then, apply text appearance
+            val timeLength = dueTimeText.length
+            dueTimeLabel.setSpan(
+                StyleSpan(Typeface.ITALIC),
+                0,
+                timeLength,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            dueTimeLabel.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(context, R.color.gray)),
+                0,
+                timeLength,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            dueTimeLabel.setSpan(
+                RelativeSizeSpan(0.8f),
+                0,
+                timeLength,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
 
-        val timeLength = dueTimeText.length
-        dueTimeLabel.setSpan(
-            StyleSpan(Typeface.ITALIC),
-            0,
-            timeLength,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        dueTimeLabel.setSpan(
-            ForegroundColorSpan(colorTypedValue.data),
-            0,
-            timeLength,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        dueTimeLabel.setSpan(
-            RelativeSizeSpan(0.8f),
-            0,
-            timeLength,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        taskLabel.append(dueTimeLabel)
+            taskLabel.append(dueTimeLabel)
+        }
     }
 
     text = taskLabel
