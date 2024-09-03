@@ -2,17 +2,14 @@ package com.piratmac.todo.views.helpers
 
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.*
-import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.piratmac.todo.R
 import com.piratmac.todo.models.TASK_DATETIME_LATER
