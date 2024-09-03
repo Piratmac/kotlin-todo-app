@@ -24,15 +24,6 @@ class TodoPendingIntent {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
-    // Pending Intent for toggling the done/not done flag on a task
-    fun forTaskToggleDone(context: Context, task: Task, notificationIdToDismiss: Int = 0): PendingIntent {
-        return PendingIntent.getBroadcast(
-            context,
-            task.id.toInt(),
-            TodoIntent().forTaskToggleDone(context, task, notificationIdToDismiss),
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-    }
 
     // Pending intent for snoozing a task
     fun forTaskSnooze(context: Context, task: Task, notificationIdToDismiss: Int = 0): PendingIntent {
@@ -43,7 +34,6 @@ class TodoPendingIntent {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
-
 
     // Pending intent for opening the task details page
     fun forTaskDetails(context: Context, task: Task, notificationIdToDismiss: Int = 0): PendingIntent {
@@ -100,13 +90,13 @@ class TodoPendingIntent {
             PendingIntent.FLAG_IMMUTABLE)
     }
 
-    // Empty pending intent (used for the widget's ListView)
+    // Empty *AND MUTABLE* pending intent (used for the widget's ListView)
     fun forBroadcast(context: Context): PendingIntent {
         return PendingIntent.getBroadcast(
             context,
             0,
             TodoIntent().forBroadcast(context),
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
     }
 }
