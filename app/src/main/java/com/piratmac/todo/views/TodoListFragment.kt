@@ -20,7 +20,7 @@ import com.piratmac.todo.views.helpers.TodoIntent
 class TodoListFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
+        requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
         ViewModelProvider(this)[TodoListViewModel::class.java]
@@ -45,7 +45,7 @@ class TodoListFragment : Fragment() {
 
         binding.deleteDoneTasks.setOnClickListener { onDeleteDoneTasksClick() }
         binding.settings.setOnClickListener { onSettingsClick() }
-        binding.addNew.setOnClickListener { onAddNewTaskClock() }
+        binding.addNew.setOnClickListener { onAddNewTaskClick() }
 
         // Bind the RecyclerView to the data
         val adapter =
@@ -116,7 +116,7 @@ class TodoListFragment : Fragment() {
         settingsFragment.show(activity?.supportFragmentManager!!, "settingsDialog")
     }
 
-    private fun onAddNewTaskClock() {
+    private fun onAddNewTaskClick() {
         this.findNavController()
             .navigate(
                 TodoListFragmentDirections.actionTodoListFragmentToTaskDetailsFragment(0L)
