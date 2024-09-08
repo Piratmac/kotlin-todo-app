@@ -10,6 +10,8 @@ import com.piratmac.todo.views.helpers.BackupWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 class TodoApplication : Application() {
@@ -23,18 +25,19 @@ class TodoApplication : Application() {
     }
 
     private fun setupRecurringWork() {
+        // Setup regular backups
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .build()
 
-        val repeatingRequest = PeriodicWorkRequestBuilder<BackupWorker>(1, TimeUnit.DAYS)
+        val backupRequest = PeriodicWorkRequestBuilder<BackupWorker>(1, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
 
         WorkManager.getInstance(this.applicationContext).enqueueUniquePeriodicWork(
             BackupWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
-            repeatingRequest
+            backupRequest
         )
     }
 }
