@@ -30,12 +30,24 @@ class TodoListViewModel(application: Application) : AndroidViewModel(application
 
     val visibleTasks = tasksRepository.allTasks
 
+    class TodoListViewFactory(private val app: Application) :
+        ViewModelProvider.Factory {
+        fun <T : TodoListViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(TodoListViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return TodoListViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewModel")
+        }
+    }
+
     fun deleteDoneTasks() {
         viewModelScope.launch {
             DeleteDoneTasks(tasksRepository).execute()
         }
     }
-    
+
+
     fun onItemRadioButtonClick(task: Task) {
         // This is a hack: when using LiveData, the list in the memory of the adapter's DiffUtil is the same as the new list sent through submitList
         // This happens when checking and un-checking the same task twice in a row
