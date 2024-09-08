@@ -1,6 +1,7 @@
 package com.piratmac.todo
 
 import android.app.Application
+import android.content.Context
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -30,7 +31,7 @@ class TodoApplication : Application() {
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(this.applicationContext).enqueueUniquePeriodicWork(
             BackupWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest
